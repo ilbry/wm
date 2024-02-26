@@ -11,7 +11,11 @@ const styles = makeStyles({
         padding: "0 5rem 0 5rem"
     },
     item: {
-        paddingTop: "1rem"
+        paddingTop: "1rem",
+        width: '100%',
+        display: 'inline-block',
+        border: '2px solid #ECF0F1',
+        margin:0
     }
 })
 
