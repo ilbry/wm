@@ -23,7 +23,7 @@ export default function Sidebar() {
             >
                 <Toolbar>
                     <Typography variant="h6" noWrap component="div">
-                        Waste management
+                        Waste management | Current Contracts
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -42,7 +42,7 @@ export default function Sidebar() {
                 <Toolbar/>
                 <Divider/>
                 <List>
-                    {['Current Contracts', 'History of Contracts', 'Contact Us', 'Log out'].map((text, index) => (
+                    {['Current Contracts', 'Contact Us', 'Log out'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
                                 <ListItemText primary={text}/>

@@ -62,7 +62,8 @@ function App() {
                 <Sidebar/>
                 <div className={classes.wrapper}>
                     <Typography variant="h3" className={classes.bigSpace} color="primary">
-                        Here you can see your current contracts. Click "Request change" if you have better ideas
+                        Here you can see your current contracts. Click "Request change" if you are unhappy with
+                        something
                     </Typography>
                 </div>
                 <div className={`${classes.grid} ${classes.bigSpace}`}>

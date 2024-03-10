@@ -1,5 +1,4 @@
 import React from 'react'
-import CustomBtn from './customBtn'
 import logo from '../logo.svg'
 import logoMobile from '../logoMobile.svg'
 import {Toolbar, Typography} from '@material-ui/core'
