@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from '../logo.svg'
 import logoMobile from '../logoMobile.svg'
-import {Toolbar, Typography} from '@material-ui/core'
+import {Toolbar} from '@material-ui/core'
 import {makeStyles} from "@material-ui/core/styles";
 
 const styles = makeStyles({

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Typography} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
-import CustomBtn from './customBtn'
+import DetailsBtn from './DetailsBtn'
 
 const styles = makeStyles({
     wrapper: {
@@ -19,21 +19,19 @@ const styles = makeStyles({
     }
 })
 
-function Grid(props) {
-    const {icon, wasteType, location, schedule, title, btnTitle} = props;
+function GridRequests(props) {
+    const {icon, UserID, RequestText, btnTitle } = props;
     const classes = styles();
     return (
         <div className={classes.wrapper}>
             <div className={classes.item}>{icon}</div>
-            <Typography className={classes.item} variant="h4">{title}</Typography>
-            <Typography className={classes.item} variant="h5">{wasteType}</Typography>
-            <Typography className={classes.item} variant="h5">{location}</Typography>
-            <Typography className={classes.item} variant="h5">{schedule}</Typography>
+            <Typography className={classes.item} variant="h5">{UserID}</Typography>
+            <Typography className={classes.item} variant="h5">{RequestText}</Typography>
             <div className={classes.item}>
-                <CustomBtn  txt={btnTitle}/>
+                <DetailsBtn txt={btnTitle}/>
             </div>
         </div>
     )
 }
 
-export default Grid
+export default GridRequests
