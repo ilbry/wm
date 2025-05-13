@@ -15,11 +15,15 @@ const drawerWidth = 240;
 
 export default function Sidebar() {
     return (
-        <Box sx={{display: 'flex'}}>
-            <CssBaseline/>
+        <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
             <AppBar
                 position="fixed"
-                sx={{width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`}}
+                sx={{
+                    width: `calc(100% - ${drawerWidth}px)`, 
+                    ml: `${drawerWidth}px`, 
+                    zIndex: (theme) => theme.zIndex.drawer + 1, 
+                }}
             >
                 <Toolbar>
                     <Typography variant="h6" noWrap component="div">
@@ -37,26 +41,32 @@ export default function Sidebar() {
                     },
                 }}
                 variant="permanent"
-                anchor="right"
+                anchor="left"
             >
-                <Toolbar/>
-                <Divider/>
+                <Toolbar />
+                <Divider />
                 <List>
                     {['Current Contracts', 'Contact Us', 'Log out'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
-                                <ListItemText primary={text}/>
+                                <ListItemText primary={text} />
                             </ListItemButton>
                         </ListItem>
                     ))}
                 </List>
-                <Divider/>
+                <Divider />
             </Drawer>
             <Box
                 component="main"
-                sx={{flexGrow: 1, bgcolor: 'background.default', p: 3}}
+                sx={{
+                    flexGrow: 1,
+                    bgcolor: 'background.default',
+                    p: 3,
+                    ml: `${drawerWidth}px`, 
+                    mt: 8, 
+                }}
             >
-                <Toolbar/>
+                <Toolbar />
             </Box>
         </Box>
     );

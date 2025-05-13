@@ -1,50 +1,57 @@
-import React from 'react'
-import logo from '../logo.svg'
-import logoMobile from '../logoMobile.svg'
-import {Toolbar} from '@material-ui/core'
-import {makeStyles} from "@material-ui/core/styles";
+import logo from '../logo.svg';
+import logoMobile from '../logoMobile.svg';
+import { AppBar, Toolbar } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-const styles = makeStyles({
+const useStyles = makeStyles({
+    appBar: {
+        backgroundColor: '#95EDA0',
+    },
     bar: {
-        paddingTop: "1.15rem",
-        backgroundColor: "#95EDA0",
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '0.5rem 2rem',
         '@media (max-width:780px)': {
-            flexDirection: "column"
-        }
+            flexDirection: 'column',
+        },
     },
     logo: {
-        width: "5%",
+        width: '5%',
         '@media (max-width:780px)': {
-            display: "none"
-        }
+            display: 'none',
+        },
     },
     logoMobile: {
-        width: "100%",
-        display: "none",
+        width: '100%',
+        display: 'none',
         '@media (max-width:780px)': {
-            display: "inline-block"
-        }
+            display: 'inline-block',
+        },
     },
     menuItem: {
-        cursor: "pointer",
+        cursor: 'pointer',
         flexGrow: 1,
-        "&:hover": {
-            color: "#4f25c8"
+        '&:hover': {
+            color: '#4f25c8',
         },
         '@media (max-width:780px)': {
-            paddingBottom: "1rem"
-        }
-    }
-})
+            paddingBottom: '1rem',
+        },
+    },
+});
 
 function NavBar() {
-    const classes = styles()
+    const classes = useStyles();
+
     return (
-        <Toolbar position="sticky" color="rgba(0, 0, 0, 0.87)" className={classes.bar}>
-            <img src={logo} className={classes.logo} alt={'error'}/>
-            <img src={logoMobile} className={classes.logoMobile} alt={'error'}/>
-        </Toolbar>
-    )
+        <AppBar position="sticky" className={classes.appBar} elevation={0}>
+            <Toolbar className={classes.bar}>
+                <img src={logo} className={classes.logo} alt="desktop logo" />
+                <img src={logoMobile} className={classes.logoMobile} alt="mobile logo" />
+            </Toolbar>
+        </AppBar>
+    );
 }
 
-export default NavBar
+export default NavBar;

@@ -1,39 +1,62 @@
-import React from 'react'
-import { Typography} from '@material-ui/core'
-import {makeStyles} from '@material-ui/core/styles'
-import DetailsBtn from './DetailsBtn'
-import EditBtn from './EditBtn'
+import React from 'react';
+import { Typography, Box, Paper, Divider } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import DetailsBtn from './DetailsBtn';
+import EditBtn from './EditBtn';
 
-const styles = makeStyles({
-    wrapper: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "0 5rem 0 5rem"
+const useStyles = makeStyles(() => ({
+    card: {
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        padding: '1.5rem',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        height: '100%',
+        textAlign: 'center',
+        transition: 'transform 0.2s ease-in-out',
+        '&:hover': {
+            transform: 'scale(1.02)',
+        },
     },
-    item: {
-        paddingTop: "1rem",
+    iconWrapper: {
+        marginBottom: '1rem',
+    },
+    text: {
+        marginBottom: '0.4rem',
+    },
+    buttons: {
+        marginTop: '1rem',
         width: '100%',
-        display: 'inline-block',
-        border: '2px solid #ECF0F1',
-        margin:0
-    }
-})
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.5rem',
+    },
+}));
 
-    const GridOperations = (props) => {
-        const {icon, OperationID, CustomerName, DriverName, id} = props;
-        const classes = styles();
+const GridOperations = ({ icon, OperationID, CustomerName, DriverName, id }) => {
+    const classes = useStyles();
 
-        return (
-            <div className={classes.wrapper}>
-                <div className={classes.item}>{icon}</div>
-                <Typography className={classes.item} variant="h5">{OperationID}</Typography>
-                <Typography className={classes.item} variant="h5">{CustomerName}</Typography>
-                <Typography className={classes.item} variant="h5">{DriverName}</Typography>
-                <DetailsBtn operationID={id}/>
+    return (
+        <Paper className={classes.card} elevation={3}>
+            <Box className={classes.iconWrapper}>{icon}</Box>
+            <Typography variant="subtitle1" className={classes.text}>
+                OperationID: {OperationID}
+            </Typography>
+            <Typography variant="body1" className={classes.text}>
+                Customer: {CustomerName}
+            </Typography>
+            <Typography variant="body1" className={classes.text}>
+                Driver: {DriverName}
+            </Typography>
+            <Divider style={{ width: '100%', margin: '1rem 0' }} />
+            <div className={classes.buttons}>
+                <DetailsBtn operationID={id} />
                 <EditBtn operationID={id} />
             </div>
-        );
-    }
+        </Paper>
+    );
+};
 
 export default GridOperations;

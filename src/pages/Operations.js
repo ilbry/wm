@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "../App.css";
 import NavBar from "../components/navBar";
 import GridOperations from "../components/gridOperations";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import Sidebar from "../components/sidebar";
-import {createTheme, ThemeProvider, Typography, TextField} from "@mui/material";
-import {makeStyles} from "@material-ui/core/styles";
+import { createTheme, ThemeProvider, Typography, TextField } from "@mui/material";
+import { makeStyles } from "@material-ui/core/styles";
 
 const theme = createTheme({
     palette: {
@@ -30,51 +30,37 @@ const theme = createTheme({
     }
 });
 
-const operationsStyles = makeStyles({
+const operationsStyles = makeStyles((theme) => ({
     wrapper: {
-        width: "40%",
+        width: "90%",
         margin: "auto",
         textAlign: "center"
     },
     bigSpace: {
-        marginTop: "15rem"
+        marginTop: "4rem"
     },
     mediumSpace: {
-        marginTop: "5rem"
+        marginTop: "2rem"
     },
     grid: {
-        display: "flex",
-        flexWrap: "wrap",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "row",
-        "@media (max-width: 770px)": {
-            width: "33.33%"
-        },
-        "@media (max-width: 580px)": {
-            width: "100%"
-        }
-    },
-    gridItem: {
-        width: "25%",
-        margin: "0.09rem",
-        border: "1px solid #ccc",
-        borderRadius: "5px",
-        padding: "1rem",
-        "@media (max-width: 768px)": {
-            width: "45%"
-        },
-        "@media (max-width: 576px)": {
-            width: "100%"
-        }
+        display: "grid",
+        gap: "4.5rem",
+        gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+        padding: "0 2rem",
+        justifyItems: "center"
     },
     searchBar: {
         width: "50%",
-        margin: "auto",
-        marginBottom: "2rem",
-        marginTop: "2rem"
+        margin: "2rem auto"
+    },
+    contentWrapper: {
+        display: "flex",
+        flexDirection: "column",
+        marginLeft: 240, 
+        padding: "1rem",
+        flexGrow: 1
     }
-});
+}));
 
 export default function OperationsPage() {
     const classes = operationsStyles();
@@ -84,15 +70,18 @@ export default function OperationsPage() {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-
             return;
         }
 
         fetch("http://localhost:8090/api/getShortOperations", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
         })
             .then((response) => {
                 if (!response.ok) {
-
                     throw new Error('Unauthorized');
                 }
                 return response.json();
@@ -115,38 +104,33 @@ export default function OperationsPage() {
     return (
         <div className="App">
             <ThemeProvider theme={theme}>
-                <NavBar/>
-                <Sidebar/>
-                <Typography variant="h3" className={classes.bigSpace} color="primary">
-                    Here you can see your current contracts.
-                </Typography>
-                <div className={classes.searchBar}>
-                    <TextField
-                        id="search"
-                        label="Search"
-                        variant="outlined"
-                        fullWidth
-                        onChange={handleSearch}
-                    />
-                </div>
-                <div className={`${classes.grid} ${classes.mediumSpace}`}>
-                    {filteredOperations.map((operation) => (
-                        <div key={operation.OperationID} className={classes.gridItem}>
+                <NavBar />
+                <Sidebar />
+                <div className={classes.contentWrapper}>
+                    <Typography variant="h4" className={classes.bigSpace} color="primary">
+                        Here you can see your current contracts.
+                    </Typography>
+                    <div className={classes.searchBar}>
+                        <TextField
+                            id="search"
+                            label="Search"
+                            variant="outlined"
+                            fullWidth
+                            onChange={handleSearch}
+                        />
+                    </div>
+                    <div className={classes.grid}>
+                        {filteredOperations.map((operation) => (
                             <GridOperations
-                                icon={
-                                    <LocalShippingIcon
-                                        style={{fill: "#71bd23", height: "125", width: "125"}}
-                                    />
-                                }
-                                OperationID={`OperationID: ${operation.OperationID}`}
-                                CustomerName={`CustomerName: ${operation.CustomerName}`}
-                                DriverName={`DriverName: ${operation.DriverName}`}
-                                id={`${operation.OperationID}`}
+                                key={operation.OperationID}
+                                icon={<LocalShippingIcon style={{ fill: "#71bd23", height: 125, width: 125 }} />}
+                                OperationID={operation.OperationID}
+                                CustomerName={operation.CustomerName}
+                                DriverName={operation.DriverName}
+                                id={operation.OperationID}
                             />
-                        </div>
-                    ))}
-                </div>
-                <div className={classes.bigSpace}>
+                        ))}
+                    </div>
                 </div>
             </ThemeProvider>
         </div>
